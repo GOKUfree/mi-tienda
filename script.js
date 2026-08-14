@@ -15,7 +15,7 @@ const productos = [
     },
     {
         id: 2,
-        nombre: "SET Security",
+        nombre: "ESET Security",
         categoria: "antivirus",
         precio: 49.90,
         precio_original: 60.90,
@@ -167,7 +167,7 @@ function renderizarProductos(productosFiltrados = null) {
 
     container.innerHTML = productosMostrar.map(producto => `
         <div class="product-card">
-            ${producto.imagen ? `<img src="${producto.imagen}" alt="${producto.nombre}" class="product-img">` : `<i class="fas ${producto.icono} product-icon"></i>`}
+            ${producto.imagen ? `<img src="${producto.imagen}" alt="${producto.nombre}" class="product-img" loading="lazy">` : `<i class="fas ${producto.icono} product-icon"></i>`}
             <h3>${producto.nombre}</h3>
             <p class="product-category"><i class="fas fa-tag"></i> ${producto.categoria.toUpperCase()}</p>
             <div class="product-price">
@@ -180,6 +180,19 @@ function renderizarProductos(productosFiltrados = null) {
             </button>
         </div>
     `).join('');
+}
+
+// ============================================
+// CONTAR PRODUCTOS POR CATEGORÍA (AUTOMÁTICO)
+// ============================================
+function actualizarContadoresCategorias() {
+    const categorias = ['antivirus', 'office', 'autocad', 'diseno', 'sistemas'];
+    categorias.forEach(cat => {
+        const el = document.getElementById(`count-${cat}`);
+        if (el) {
+            el.textContent = productos.filter(p => p.categoria === cat).length;
+        }
+    });
 }
 
 // ============================================
@@ -324,10 +337,13 @@ function actualizarCarrito() {
                 <p>S/ ${(item.precio * item.cantidad).toFixed(2)}</p>
             </div>
             <div class="cart-item-quantity">
-                <button onclick="cambiarCantidad(${item.id}, -1)">−</button>
+                <button onclick="cambiarCantidad(${item.id}, -1)" aria-label="Disminuir cantidad">−</button>
                 <span>${item.cantidad}</span>
-                <button onclick="cambiarCantidad(${item.id}, 1)">+</button>
+                <button onclick="cambiarCantidad(${item.id}, 1)" aria-label="Aumentar cantidad">+</button>
             </div>
+            <button class="cart-item-remove" onclick="eliminarDelCarrito(${item.id})" aria-label="Eliminar ${item.nombre} del carrito">
+                <i class="fas fa-trash"></i>
+            </button>
         </div>
     `).join('');
     
@@ -379,7 +395,7 @@ function checkout() {
     
     // ===== SOLO PARA PERÚ (NÚMERO 920206320) =====
     const url = `https://wa.me/51920206320?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener');
 }
 
 // ============================================
@@ -434,6 +450,7 @@ document.head.appendChild(styleAnimations);
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
     renderizarProductos();
+    actualizarContadoresCategorias();
 });
 
 // ============================================

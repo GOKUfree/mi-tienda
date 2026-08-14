@@ -15,11 +15,23 @@ html, body {
     overflow-x: hidden;
 }
 
+:root {
+    --bg: #0a0a1a;
+    --bg-soft: #10122a;
+    --accent: #007bff;
+    --accent-2: #00d4ff;
+    --text: #ffffff;
+    --text-dim: #b8bcd4;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #ffffff;
-    background: #0a0a1a;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9);
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+h1, h2, h3, h4, .logo-text, .btn-hero, .btn-add, .btn-checkout {
+    font-family: 'Sora', 'Segoe UI', sans-serif;
 }
 
 a {
@@ -27,42 +39,56 @@ a {
     color: inherit;
 }
 
+button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
+}
+
 /* ============================================
-   FONDO 4K CALIDAD MÁXIMA
+   FONDO DE MARCA — degradado + grid técnico
 ============================================ */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: -2;
-    background: url('img/gojo-4k.jpg') no-repeat center center fixed;
-    background-size: cover;
-    background-color: #0a0a1a;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    animation: move4K 35s ease-in-out infinite alternate;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(0, 123, 255, 0.20), transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(0, 212, 255, 0.14), transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(0, 123, 255, 0.12), transparent 50%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 50%, var(--bg) 100%);
+    background-color: var(--bg);
+    animation: driftGlow 25s ease-in-out infinite alternate;
 }
 
 body::after {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: -1;
-    background: rgba(0, 0, 0, 0.7); /* Fondo más oscuro para resaltar texto */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, #000 40%, transparent 100%);
 }
 
-@keyframes move4K {
-    0% { transform: scale(1.03) translate(0%, 0%); }
-    50% { transform: scale(1.03) translate(-1%, -1%); }
-    100% { transform: scale(1.03) translate(0%, 0%); }
+@keyframes driftGlow {
+    0% { transform: scale(1) translate(0%, 0%); }
+    100% { transform: scale(1.08) translate(-1.5%, -1.5%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; }
 }
 
 /* ============================================
@@ -102,15 +128,16 @@ body::after {
     filter: drop-shadow(0 0 20px rgba(0, 123, 255, 0.3));
 }
 
-.logo span {
-    font-size: 28px;
-    font-weight: 800;
+.logo-text {
+    font-size: 26px;
+    font-weight: 700;
     color: #ffffff;
     text-shadow: 0 0 30px rgba(0, 123, 255, 0.3);
+    letter-spacing: -0.02em;
 }
 
-.logo span span {
-    color: #007bff;
+.logo-text .highlight {
+    color: #00d4ff;
     text-shadow: 0 0 40px rgba(0, 123, 255, 0.5);
 }
 
@@ -157,6 +184,8 @@ body::after {
 
 .cart-icon {
     position: relative;
+    background: none;
+    border: none;
     color: #fff;
     font-size: 24px;
     cursor: pointer;
@@ -577,9 +606,22 @@ body::after {
 .cart-item {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     padding: 15px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cart-item-remove {
+    background: none;
+    color: #888;
+    font-size: 15px;
+    padding: 6px;
+    transition: 0.3s;
+    flex-shrink: 0;
+}
+
+.cart-item-remove:hover {
+    color: #ff6b6b;
 }
 
 .cart-item i {

@@ -3,32 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Tech Perú - Licencias Originales</title>
+    <title>Aesthetic Tech Perú | Licencias de Software Originales</title>
+    <meta name="description" content="Compra licencias originales de Antivirus, Microsoft Office, AutoCAD, Adobe y más en Perú. 100% originales, con garantía y entrega instantánea por WhatsApp.">
+    <meta name="keywords" content="licencias originales, office 365, antivirus, autocad, adobe, windows 11, licencias software Perú">
+    <meta name="theme-color" content="#0a0a1a">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Aesthetic Tech Perú | Licencias de Software Originales">
+    <meta property="og:description" content="Antivirus, Office, AutoCAD y más. 100% originales y con garantía. Entrega instantánea.">
+    <meta property="og:image" content="img/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_PE">
+
+    <link rel="icon" type="image/png" href="img/logo.png">
+
+    <!-- Preconexiones para cargar más rápido -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- ===== HEADER ===== -->
     <header>
         <nav class="navbar">
             <div class="nav-left">
-                <!-- 🖼️ NUEVO LOGO CON IMAGEN -->
-<div class="logo">
+                <!-- 🖼️ LOGO CON IMAGEN -->
+<a href="#inicio" class="logo">
     <img src="img/logo.png" alt="Aesthetic Tech Perú" class="logo-img">
-    <span>Aesthetic<span> Tech<span> Perú
-</div>
+    <span class="logo-text">Aesthetic <span class="highlight">Tech</span> Perú</span>
+</a>
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#productos">Productos</a></li>
-                    <li><a href="#ofertas">Ofertas</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </div>
             <div class="nav-right">
-                <div class="cart-icon" onclick="toggleCart()">
+                <button class="cart-icon" onclick="toggleCart()" aria-label="Abrir carrito de compras">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cartCount">0</span>
-                </div>
+                </button>
             </div>
         </nav>
     </header>
@@ -42,7 +60,7 @@
                 <span><i class="fas fa-check-circle"></i> 100% Original</span>
                 <span><i class="fas fa-shield-alt"></i> Garantía 1 año</span>
                 <span><i class="fas fa-bolt"></i> Entrega instantánea</span>
-				<span><i class="fas fa-television"></i> Instalacion remota</span>
+                <span><i class="fas fa-television"></i> Instalación remota</span>
             </div>
             <a href="#productos" class="btn-hero">Ver Productos <i class="fas fa-arrow-right"></i></a>
         </div>
@@ -55,27 +73,27 @@
         <div class="category-card" onclick="filtrar('antivirus')">
             <i class="fas fa-shield-virus"></i>
             <h3>Antivirus</h3>
-            <p>2 productos</p>
+            <p><span id="count-antivirus">0</span> productos</p>
         </div>
         <div class="category-card" onclick="filtrar('office')">
             <i class="fas fa-file-word"></i>
             <h3>Microsoft Office</h3>
-            <p>3 productos</p>
+            <p><span id="count-office">0</span> productos</p>
         </div>
         <div class="category-card" onclick="filtrar('autocad')">
             <i class="fas fa-cube"></i>
             <h3>AutoCAD</h3>
-            <p>1 producto</p>
+            <p><span id="count-autocad">0</span> productos</p>
         </div>
         <div class="category-card" onclick="filtrar('diseno')">
             <i class="fas fa-paint-brush"></i>
             <h3>Diseño Gráfico</h3>
-            <p>5 productos</p>
+            <p><span id="count-diseno">0</span> productos</p>
         </div>
         <div class="category-card" onclick="filtrar('sistemas')">
             <i class="fas fa-windows"></i>
             <h3>Sistemas</h3>
-            <p>2 productos</p>
+            <p><span id="count-sistemas">0</span> productos</p>
         </div>
         <div class="category-card" onclick="mostrarTodos()">
             <i class="fas fa-th-large"></i>
@@ -90,8 +108,8 @@
         <div class="products-header">
             <h2>🛒 Productos Destacados</h2>
             <div class="products-controls">
-                <input type="text" id="searchInput" placeholder="🔍 Buscar productos..." oninput="buscarProducto()">
-                <select id="sortSelect" onchange="ordenarProductos()">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar productos..." oninput="buscarProducto()" aria-label="Buscar productos">
+                <select id="sortSelect" onchange="ordenarProductos()" aria-label="Ordenar productos">
                     <option value="default">Ordenar por</option>
                     <option value="price-asc">💰 Menor precio</option>
                     <option value="price-desc">💰 Mayor precio</option>
@@ -110,7 +128,7 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2><i class="fas fa-shopping-cart"></i> Mi Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
+            <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
             <p class="empty-cart">🛒 Tu carrito está vacío</p>
@@ -141,24 +159,24 @@
             <!-- ===== REDES SOCIALES CON ENLACES REALES ===== -->
             <div class="social-links">
                 <!-- FACEBOOK -->
-                <a href="https://www.facebook.com/share/1dDissygaR/" target="_blank">
+                <a href="https://www.facebook.com/share/1dDissygaR/" target="_blank" rel="noopener">
                     <i class="fab fa-facebook"></i>
                 </a>
                 <!-- WHATSAPP -->
-                <a href="https://wa.me/51920206320" target="_blank">
+                <a href="https://wa.me/51920206320" target="_blank" rel="noopener">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
         </div>
         <div class="footer-section">
             <h4>Contáctanos</h4>
-            <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51920206320" target="_blank">+51 920206320</a></p>
+            <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51920206320" target="_blank" rel="noopener">+51 920206320</a></p>
             <p><i class="fas fa-clock"></i> Lun - sáb 9am - 6pm</p>
         </div>
         <div class="footer-section">
             <h4>Métodos de pago</h4>
-                <i class="fas fa-mobile-alt"></i>
-                <span>Yape</span>
+            <div class="payment-icons">
+                <span>📱 Yape</span>
             </div>
         </div>
     </div>
@@ -167,6 +185,6 @@
     </div>
 </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
