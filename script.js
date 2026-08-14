@@ -369,8 +369,15 @@ function checkout() {
     }
     
     const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    const mensaje = `🛒 Nuevo Pedido\n\nProductos:\n${carrito.map(i => `- ${i.nombre} x${i.cantidad} = S/ ${(i.precio * i.cantidad).toFixed(2)}`).join('\n')}\n\nTotal: S/ ${total.toFixed(2)}`;
     
+    // ===== CONSTRUIR MENSAJE =====
+    const mensaje = 
+        `Hola, quiero comprar:\n` +
+        carrito.map(i => `${i.nombre} x${i.cantidad} = S/ ${(i.precio * i.cantidad).toFixed(2)}`).join('\n') +
+        `\n\nTotal: S/ ${total.toFixed(2)}\n\n` +
+        `¿Están disponibles estos productos? ¿Tienen alguna oferta?`;
+    
+    // ===== SOLO PARA PERÚ (NÚMERO 920206320) =====
     const url = `https://wa.me/51920206320?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
 }
